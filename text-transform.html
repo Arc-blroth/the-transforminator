@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- made with ❤️ by Arc -->
+<html>
+    <head>
+        <title>The Transforminator</title>
+        <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css?family=Hind&display=swap" rel="stylesheet">
+        <style>
+            html, body {
+                height: 100%;
+            }
+
+            body {
+                font-family: 'Hind', sans-serif;
+                color: black;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            textarea {
+                resize: none;
+                font-family: 'Consolas', monospace;
+            }
+            
+            @media (prefers-color-scheme: dark) {
+                html, body {
+                    color: #dedede;
+                    background-color: #00080f;
+                }
+                
+                .jumbotron {
+                    background-color: #09131a;
+                }
+                
+                textarea.darkness {
+                    color: #dedede;
+                    border-color: #09131a;
+                    background-color: #142029;
+                }
+                
+                textarea.darkness:focus {
+                    color: #dedede;
+                    background-color: #1d2b36;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container h-100">
+		<div class="row align-items-center h-100">
+        <div class="col-12 mx-auto">
+            <div class="jumbotron" id="jumbotron">
+                <h1 class="mb-5">The Transforminator&trade;</h1>
+                <form autocomplete="off" method="GET" role="form" data-toggle="validator" novalidate="true" id="form">
+                    <div class="form-group">
+                        <label for="transformIn">Transform: </label>
+                        <textarea class="form-control darkness" id="transformIn" rows="1">text => text.toUpperCase()</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="textIn">Text: </label>
+                        <textarea class="form-control darkness" id="textIn" rows="3"></textarea>
+                    </div>
+                </form>
+                <label for="textOut">Output: </label>
+                <textarea class="form-control darkness" id="textOut" rows="3"></textarea>
+            </div>
+        </div>
+        <script>
+            let transformIn = document.getElementById("transformIn")
+            let transform = () => {
+                try {
+                    textOut.value = eval(transformIn.value)(textIn.value)
+                } catch(e) {
+                    textOut.value = e.toString()
+                }
+            }
+            
+            let textIn = document.getElementById("textIn")
+            let textOut = document.getElementById("textOut")
+            let form = document.getElementById("form")
+            transformIn.oninput = (e) => {
+                transform()
+            }
+            textIn.oninput = (e) => {
+                transform()
+                let rows = Math.min(Math.max(textIn.value.split("\n").length, 3), 10)
+                textIn.rows = rows
+            }
+            textOut.oninput = (e) => {
+                transform()
+            }
+            form.onsubmit = (e) => e.preventDefault()
+        </script>
+    </body>
+</html>
