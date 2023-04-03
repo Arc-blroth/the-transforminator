@@ -94,6 +94,15 @@
                 transform()
             }
             form.onsubmit = (e) => e.preventDefault()
+            
+            let updateHash = () => {
+                try {
+                    transformIn.value = decodeURIComponent(window.location.hash.substring(1))
+                    transform()
+                } catch (e) {}
+            }
+            window.onhashchange = (e) => { updateHash() }
+            updateHash()
         </script>
     </body>
 </html>
